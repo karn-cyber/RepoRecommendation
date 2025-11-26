@@ -14,8 +14,7 @@ function Navigation() {
         <nav className="navigation">
             <div className="nav-container">
                 <div className="nav-brand" onClick={() => navigate('/')}>
-                    <span className="brand-icon">🚀</span>
-                    <span className="brand-text">Repo Finder</span>
+                    <span className="brand-text">RepoRecommendation</span>
                 </div>
 
                 <div className="nav-links">
