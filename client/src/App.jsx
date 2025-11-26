@@ -19,7 +19,7 @@ function App() {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3001/api/repositories', {
+      const response = await fetch('/api/repositories', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ function App() {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3001/api/search', {
+      const response = await fetch('/api/search', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
