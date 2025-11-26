@@ -1,0 +1,33 @@
+.spline-container {
+    width: 100%;
+    height: 600px;
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: radial-gradient(circle at center, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+}
+
+.spline-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+}
+
+/* Add subtle glow effect */
+.spline-container::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-lg);
+    opacity: 0.3;
+    filter: blur(20px);
+    z-index: -1;
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+    .spline-container {
+        height: 300px;
+    }
+}
