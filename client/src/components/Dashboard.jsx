@@ -58,7 +58,7 @@ function Dashboard() {
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
 
-            const response = await fetch(`http://localhost:3001/api/github/contributions/${user.login}`, {
+            const response = await fetch(`/api/github/contributions/${user.login}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 },
@@ -93,7 +93,7 @@ function Dashboard() {
 
     const handleConnect = async () => {
         try {
-            const response = await fetch('http://localhost:3001/api/github/oauth/authorize');
+            const response = await fetch('/api/github/oauth/authorize');
             const data = await response.json();
 
             if (data.authUrl) {

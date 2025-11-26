@@ -316,7 +316,8 @@ router.get('/github/oauth/callback', async (req, res) => {
     const clientSecret = process.env.GITHUB_CLIENT_SECRET;
 
     if (!code) {
-        return res.redirect('http://localhost:5173?error=no_code');
+        const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+        return res.redirect(`${clientUrl}?error=no_code`);
     }
 
     try {
@@ -341,11 +342,13 @@ router.get('/github/oauth/callback', async (req, res) => {
             return res.redirect('http://localhost:5173?error=no_token');
         }
 
-        // Redirect back to frontend with token (in production, use secure httpOnly cookie)
-        res.redirect(`http://localhost:5173/dashboard?token=${accessToken}`);
+        // Redirect back to frontend
+        const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+        res.redirect(`${clientUrl}/dashboard?token=${accessToken}`);
     } catch (error) {
         console.error('OAuth error:', error);
-        res.redirect('http://localhost:5173?error=oauth_failed');
+        const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+        res.redirect(`${clientUrl}?error=oauth_failed`);
     }
 });
 
