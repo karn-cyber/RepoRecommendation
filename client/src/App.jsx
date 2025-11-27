@@ -7,6 +7,8 @@ import Dashboard from './components/Dashboard';
 import Explore from './components/Explore';
 import './index.css';
 
+import Footer from './components/Footer';
+
 function App() {
   const [skills, setSkills] = useState([]);
   const [repositories, setRepositories] = useState([]);
@@ -91,6 +93,7 @@ function App() {
             element={<Explore />}
           />
         </Routes>
+        <Footer />
       </div>
     </Router>
   );
