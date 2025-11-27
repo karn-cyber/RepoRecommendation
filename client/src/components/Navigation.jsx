@@ -1,10 +1,9 @@
-import { useNavigate, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Compass } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { Home, Compass, LayoutDashboard } from 'lucide-react';
 import './Navigation.css';
-import Logo from '../assets/Gemini_Generated_Image_u4kjcbu4kjcbu4kj-removebg-preview.png';
+import logo from '../assets/Gemini_Generated_Image_u4kjcbu4kjcbu4kj-removebg-preview.png';
 
 function Navigation() {
-    const navigate = useNavigate();
     const location = useLocation();
 
     return (
@@ -16,12 +15,21 @@ function Navigation() {
                 </Link>
 
                 <div className="nav-links">
-                    <Compass size={18} />
-                    Explore
-                </button>
+                    <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>
+                        <Home size={20} />
+                        <span>Home</span>
+                    </Link>
+                    <Link to="/explore" className={`nav-link ${location.pathname === '/explore' ? 'active' : ''}`}>
+                        <Compass size={20} />
+                        <span>Explore</span>
+                    </Link>
+                    <Link to="/dashboard" className={`nav-link ${location.pathname === '/dashboard' ? 'active' : ''}`}>
+                        <LayoutDashboard size={20} />
+                        <span>Dashboard</span>
+                    </Link>
+                </div>
             </div>
-        </div>
-        </nav >
+        </nav>
     );
 }
 
