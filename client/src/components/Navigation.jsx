@@ -7,7 +7,7 @@ function Navigation() {
     const location = useLocation();
 
     return (
-        <nav className="navbar">
+        <nav className="navigation">
             <div className="nav-container">
                 <Link to="/" className="nav-brand">
                     <img src={logo} alt="RepoRecommendation Logo" className="nav-logo-img" />
@@ -19,13 +19,13 @@ function Navigation() {
                         <Home size={20} />
                         <span>Home</span>
                     </Link>
-                    <Link to="/explore" className={`nav-link ${location.pathname === '/explore' ? 'active' : ''}`}>
-                        <Compass size={20} />
-                        <span>Explore</span>
-                    </Link>
                     <Link to="/dashboard" className={`nav-link ${location.pathname === '/dashboard' ? 'active' : ''}`}>
                         <LayoutDashboard size={20} />
                         <span>Dashboard</span>
+                    </Link>
+                    <Link to="/explore" className={`nav-link ${location.pathname === '/explore' ? 'active' : ''}`}>
+                        <Compass size={20} />
+                        <span>Explore</span>
                     </Link>
                 </div>
             </div>
