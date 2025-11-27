@@ -247,7 +247,124 @@
     animation: fadeInScale 0.3s ease;
 }
 
-/* Features Section */
+/* DSA Section */
+.dsa-section {
+    padding: var(--spacing-xl) 0;
+    background: rgba(255, 255, 255, 0.02);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.dsa-toggle {
+    display: flex;
+    background: var(--bg-card);
+    padding: 4px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border);
+}
+
+.toggle-btn {
+    padding: 8px 16px;
+    border-radius: var(--radius-full);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.toggle-btn.active {
+    background: var(--primary);
+    color: white;
+}
+
+.dsa-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.dsa-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.dsa-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.3);
+}
+
+.dsa-card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.difficulty-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.difficulty-badge.easy {
+    background: rgba(76, 175, 80, 0.2);
+    color: #4caf50;
+}
+
+.difficulty-badge.medium {
+    background: rgba(255, 152, 0, 0.2);
+    color: #ff9800;
+}
+
+.difficulty-badge.hard {
+    background: rgba(244, 67, 54, 0.2);
+    color: #f44336;
+}
+
+.difficulty-badge.cp {
+    background: rgba(156, 39, 176, 0.2);
+    color: #9c27b0;
+}
+
+.platform-badge {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.dsa-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.dsa-card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
 .features-section {
     padding: var(--spacing-xl) 0;
     background: rgba(255, 255, 255, 0.02);
