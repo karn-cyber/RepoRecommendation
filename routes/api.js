@@ -579,4 +579,89 @@ function calculateStreak(calendar) {
     return currentStreak;
 }
 
+// LeetCode API Proxy
+router.get('/leetcode/:username', async (req, res) => {
+    const { username } = req.params;
+    try {
+        const query = `
+            query getUserProfile($username: String!) {
+                matchedUser(username: $username) {
+                    username
+                    submitStats: submitStatsGlobal {
+                        acSubmissionNum {
+                            difficulty
+                            count
+                            submissions
+                        }
+                    }
+                    submissionCalendar
+                }
+                allQuestionsCount {
+                    difficulty
+                    count
+                }
+            }
+        `;
+
+        const response = await axios.post('https://leetcode.com/graphql', {
+            query,
+            variables: { username }
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Referer': 'https://leetcode.com'
+            }
+        });
+
+        if (response.data.errors) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.json(response.data.data);
+    } catch (error) {
+        console.error('LeetCode API Error:', error.message);
+        res.status(500).json({ error: 'Failed to fetch LeetCode data' });
+    }
+});
+
+// Codeforces API Proxy
+router.get('/codeforces/:handle', async (req, res) => {
+    const { handle } = req.params;
+    try {
+        // Fetch user info
+        const userResponse = await axios.get(`https://codeforces.com/api/user.info?handles=${handle}`);
+        // Fetch user submissions
+        const subsResponse = await axios.get(`https://codeforces.com/api/user.status?handle=${handle}&from=1&count=1000`);
+
+        if (userResponse.data.status !== 'OK' || subsResponse.data.status !== 'OK') {
+            throw new Error('Codeforces API error');
+        }
+
+        res.json({
+            userInfo: userResponse.data.result[0],
+            submissions: subsResponse.data.result
+        });
+    } catch (error) {
+        console.error('Codeforces API Error:', error.message);
+        res.status(500).json({ error: 'Failed to fetch Codeforces data' });
+    }
+});
+
+// Daily DSA Problems Endpoint
+router.get('/dsa/daily', (req, res) => {
+    // In a real app, this could fetch from a database or rotate daily
+    const problems = {
+        leetcode: [
+            { title: "Two Sum", difficulty: "Easy", url: "https://leetcode.com/problems/two-sum/" },
+            { title: "Longest Substring Without Repeating Characters", difficulty: "Medium", url: "https://leetcode.com/problems/longest-substring-without-repeating-characters/" },
+            { title: "Median of Two Sorted Arrays", difficulty: "Hard", url: "https://leetcode.com/problems/median-of-two-sorted-arrays/" }
+        ],
+        codeforces: [
+            { title: "Watermelon", difficulty: "800", url: "https://codeforces.com/problemset/problem/4/A" },
+            { title: "Theatre Square", difficulty: "1000", url: "https://codeforces.com/problemset/problem/1/A" }
+        ]
+    };
+    res.json(problems);
+});
+
 module.exports = router;

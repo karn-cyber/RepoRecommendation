@@ -1,0 +1,66 @@
+.heatmap-container {
+    padding: 1rem;
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    overflow-x: auto;
+}
+
+.heatmap-grid {
+    display: flex;
+    gap: 3px;
+}
+
+.heatmap-week {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.heatmap-day {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: all 0.2s ease;
+}
+
+.heatmap-day:hover {
+    transform: scale(1.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.heatmap-day.dimmed {
+    opacity: 0.3;
+}
+
+/* Activity Levels */
+.level-0 {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.level-1 {
+    background-color: #0e4429;
+}
+
+.level-2 {
+    background-color: #006d32;
+}
+
+.level-3 {
+    background-color: #26a641;
+}
+
+.level-4 {
+    background-color: #39d353;
+}
+
+.heatmap-legend {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    justify-content: flex-end;
+}
