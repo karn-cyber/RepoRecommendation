@@ -1,46 +1,27 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Compass } from 'lucide-react';
 import './Navigation.css';
+import Logo from '../assets/Gemini_Generated_Image_u4kjcbu4kjcbu4kj-removebg-preview.png';
 
 function Navigation() {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const isActive = (path) => {
-        return location.pathname === path ? 'active' : '';
-    };
-
     return (
-        <nav className="navigation">
+        <nav className="navbar">
             <div className="nav-container">
-                <div className="nav-brand" onClick={() => navigate('/')}>
+                <Link to="/" className="nav-brand">
+                    <img src={logo} alt="RepoRecommendation Logo" className="nav-logo-img" />
                     <span className="brand-text">RepoRecommendation</span>
-                </div>
+                </Link>
 
                 <div className="nav-links">
-                    <button
-                        className={`nav-link ${isActive('/')}`}
-                        onClick={() => navigate('/')}
-                    >
-                        Home
-                    </button>
-                    <button
-                        className={`nav-link ${isActive('/dashboard')}`}
-                        onClick={() => navigate('/dashboard')}
-                    >
-                        <LayoutDashboard size={18} />
-                        Dashboard
-                    </button>
-                    <button
-                        className={`nav-link ${isActive('/explore')}`}
-                        onClick={() => navigate('/explore')}
-                    >
-                        <Compass size={18} />
-                        Explore
-                    </button>
-                </div>
+                    <Compass size={18} />
+                    Explore
+                </button>
             </div>
-        </nav>
+        </div>
+        </nav >
     );
 }
 
