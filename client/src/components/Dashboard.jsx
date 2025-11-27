@@ -167,8 +167,6 @@ function Dashboard() {
 
     const getTotalSolved = () => {
         let total = 0;
-        // GitHub Commits (as a proxy for solved problems/tasks)
-        total += contributionData?.stats?.totalCommits || 0;
         // LeetCode
         if (leetcodeData?.matchedUser?.submitStats?.acSubmissionNum) {
             const all = leetcodeData.matchedUser.submitStats.acSubmissionNum.find(s => s.difficulty === 'All');
@@ -270,52 +268,80 @@ function Dashboard() {
 
                 {/* Stats Grid */}
                 <div className="stats-grid fade-in">
+                    {/* 1. Total Problems Solved (CF + LC) */}
                     <div className="stat-card highlight-card">
                         <div className="stat-icon"><Trophy size={32} strokeWidth={1.5} /></div>
                         <div className="stat-content">
                             <p className="stat-label">Total Problems Solved</p>
                             <p className="stat-value">{getTotalSolved().toLocaleString()}</p>
-                            <p className="stat-subtext">GitHub + LeetCode + Codeforces</p>
+                            <p className="stat-subtext">LeetCode + Codeforces</p>
                         </div>
                     </div>
 
+                    {/* 2. Total Contributions (Github) */}
                     <div className="stat-card">
                         <div className="stat-icon"><Activity size={32} strokeWidth={1.5} /></div>
                         <div className="stat-content">
-                            <p className="stat-label">GitHub Contributions</p>
+                            <p className="stat-label">Total Contributions</p>
                             <p className="stat-value">{stats?.totalContributions?.toLocaleString() || 0}</p>
+                            <p className="stat-subtext">GitHub Activity</p>
                         </div>
                     </div>
 
-                    {leetcodeData && (
-                        <div className="stat-card">
-                            <div className="stat-icon"><Code size={32} strokeWidth={1.5} /></div>
-                            <div className="stat-content">
-                                <p className="stat-label">LeetCode Solved</p>
-                                <p className="stat-value">
-                                    {leetcodeData.matchedUser?.submitStats?.acSubmissionNum.find(s => s.difficulty === 'All')?.count || 0}
-                                </p>
-                            </div>
+                    {/* 3. Pull Requests */}
+                    <div className="stat-card">
+                        <div className="stat-icon"><GitPullRequest size={32} strokeWidth={1.5} /></div>
+                        <div className="stat-content">
+                            <p className="stat-label">Pull Requests</p>
+                            <p className="stat-value">{stats?.totalPullRequests?.toLocaleString() || 0}</p>
                         </div>
-                    )}
+                    </div>
 
-                    {codeforcesData && (
-                        <div className="stat-card">
-                            <div className="stat-icon"><Target size={32} strokeWidth={1.5} /></div>
-                            <div className="stat-content">
-                                <p className="stat-label">Codeforces Rating</p>
-                                <p className="stat-value">{codeforcesData.userInfo?.rating || 'Unrated'}</p>
-                                <p className="stat-subtext">{codeforcesData.userInfo?.rank}</p>
-                            </div>
+                    {/* 4. LeetCode Problem Solved */}
+                    <div className="stat-card">
+                        <div className="stat-icon"><Code size={32} strokeWidth={1.5} /></div>
+                        <div className="stat-content">
+                            <p className="stat-label">LeetCode Solved</p>
+                            <p className="stat-value">
+                                {leetcodeData?.matchedUser?.submitStats?.acSubmissionNum.find(s => s.difficulty === 'All')?.count || (leetcodeUsername ? '0' : '-')}
+                            </p>
+                            {!leetcodeUsername && <p className="stat-subtext">Not Connected</p>}
                         </div>
-                    )}
+                    </div>
 
-                    {/* Keep existing GitHub stats */}
+                    {/* 5. Codeforces Problem Solved */}
+                    <div className="stat-card">
+                        <div className="stat-icon"><Target size={32} strokeWidth={1.5} /></div>
+                        <div className="stat-content">
+                            <p className="stat-label">Codeforces Solved</p>
+                            <p className="stat-value">
+                                {codeforcesData?.submissions ?
+                                    new Set(codeforcesData.submissions.filter(s => s.verdict === 'OK').map(s => s.problem.name)).size
+                                    : (codeforcesHandle ? '0' : '-')}
+                            </p>
+                            {!codeforcesHandle && <p className="stat-subtext">Not Connected</p>}
+                        </div>
+                    </div>
+
+                    {/* 6. LeetCode Rating */}
+                    <div className="stat-card">
+                        <div className="stat-icon"><Flame size={32} strokeWidth={1.5} /></div>
+                        <div className="stat-content">
+                            <p className="stat-label">LeetCode Rating</p>
+                            <p className="stat-value">
+                                {leetcodeData?.userContestRanking?.rating ? Math.round(leetcodeData.userContestRanking.rating) : '-'}
+                            </p>
+                            <p className="stat-subtext">Contest Rating</p>
+                        </div>
+                    </div>
+
+                    {/* 7. Codeforces Rating */}
                     <div className="stat-card">
                         <div className="stat-icon"><Star size={32} strokeWidth={1.5} /></div>
                         <div className="stat-content">
-                            <p className="stat-label">Total Stars</p>
-                            <p className="stat-value">{stats?.totalStars?.toLocaleString() || 0}</p>
+                            <p className="stat-label">Codeforces Rating</p>
+                            <p className="stat-value">{codeforcesData?.userInfo?.rating || '-'}</p>
+                            <p className="stat-subtext">{codeforcesData?.userInfo?.rank || 'Unrated'}</p>
                         </div>
                     </div>
                 </div>

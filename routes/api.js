@@ -596,6 +596,10 @@ router.get('/leetcode/:username', async (req, res) => {
                     }
                     submissionCalendar
                 }
+                userContestRanking(username: $username) {
+                    rating
+                    globalRanking
+                }
                 allQuestionsCount {
                     difficulty
                     count
