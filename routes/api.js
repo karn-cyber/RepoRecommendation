@@ -19,8 +19,27 @@ async function searchRepositoriesBySkill(skill, difficultyLevel = 'all') {
             headers['Authorization'] = `token ${GITHUB_TOKEN}`;
         }
 
-        // Build search query based on difficulty level
-        let query = `language:${skill}`;
+        // Map skills to correct search qualifiers
+        const SKILL_MAPPINGS = {
+            'node.js': 'topic:nodejs',
+            'nodejs': 'topic:nodejs',
+            'angular': 'topic:angular',
+            'react': 'topic:react',
+            'vue': 'topic:vue',
+            'next.js': 'topic:nextjs',
+            'express': 'topic:express',
+            'django': 'topic:django',
+            'flask': 'topic:flask',
+            'spring': 'topic:spring',
+            'laravel': 'topic:laravel',
+            'dotnet': 'topic:dotnet',
+            '.net': 'topic:dotnet',
+            'c++': 'language:cpp',
+            'c#': 'language:csharp'
+        };
+
+        const normalizedSkill = skill.toLowerCase().trim();
+        let query = SKILL_MAPPINGS[normalizedSkill] || `language:${skill}`;
 
         // Add difficulty-specific filters
         if (difficultyLevel === 'beginner') {
