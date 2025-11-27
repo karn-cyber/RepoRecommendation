@@ -239,168 +239,179 @@ const careerResources = [
     }
 ];
 
-return (
-    <div className="explore-page">
-        <div className="explore-container">
-            {/* Hero Section */}
-            <div className="explore-hero fade-in">
-                <h1 className="explore-title">Explore Opportunities & Resources</h1>
-                <p className="explore-subtitle">
-                    Curated paths for Open Source, Competitive Programming, and Career Growth.
-                </p>
-            </div>
+function Explore() {
+    const [filter, setFilter] = useState('all');
 
-            {/* Filter Section */}
-            <div className="explore-filters fade-in">
-                <button
-                    className={`filter-btn ${filter === 'all' ? 'active' : ''}`}
-                    onClick={() => setFilter('all')}
-                >
-                    All Programs
-                </button>
-                <button
-                    className={`filter-btn ${filter === 'paid' ? 'active' : ''}`}
-                    onClick={() => setFilter('paid')}
-                >
-                    <DollarSign size={16} />
-                    Paid
-                </button>
-                <button
-                    className={`filter-btn ${filter === 'free' ? 'active' : ''}`}
-                    onClick={() => setFilter('free')}
-                >
-                    Free
-                </button>
-                <button
-                    className={`filter-btn ${filter === 'beginner' ? 'active' : ''}`}
-                    onClick={() => setFilter('beginner')}
-                >
-                    Beginner Friendly
-                </button>
-            </div>
+    const filteredPrograms = programs.filter(program => {
+        if (filter === 'all') return true;
+        if (filter === 'paid') return program.tags.includes('Paid');
+        if (filter === 'free') return !program.tags.includes('Paid');
+        if (filter === 'beginner') return program.difficulty === 'Beginner Friendly';
+        return true;
+    });
 
-            {/* Open Source Programs Grid */}
-            <h2 className="section-heading fade-in">Open Source Programs</h2>
-            <div className="programs-grid">
-                {filteredPrograms.map((program, index) => (
-                    <div
-                        key={program.id}
-                        className="program-card fade-in"
-                        style={{ animationDelay: `${index * 0.1}s` }}
+    return (
+        <div className="explore-page">
+            <div className="explore-container">
+                {/* Hero Section */}
+                <div className="explore-hero fade-in">
+                    <h1 className="explore-title">Explore Opportunities & Resources</h1>
+                    <p className="explore-subtitle">
+                        Curated paths for Open Source, Competitive Programming, and Career Growth.
+                    </p>
+                </div>
+
+                {/* Filter Section */}
+                <div className="explore-filters fade-in">
+                    <button
+                        className={`filter-btn ${filter === 'all' ? 'active' : ''}`}
+                        onClick={() => setFilter('all')}
                     >
-                        <div className="program-header" style={{ borderTopColor: program.color }}>
-                            <div className="program-title-section">
-                                <h2 className="program-name">{program.name}</h2>
-                                <span className="program-org">{program.organization}</span>
-                            </div>
-                            <div className="program-logo" style={{ backgroundColor: program.color }}>
-                                {program.shortName}
-                            </div>
-                        </div>
+                        All Programs
+                    </button>
+                    <button
+                        className={`filter-btn ${filter === 'paid' ? 'active' : ''}`}
+                        onClick={() => setFilter('paid')}
+                    >
+                        <DollarSign size={16} />
+                        Paid
+                    </button>
+                    <button
+                        className={`filter-btn ${filter === 'free' ? 'active' : ''}`}
+                        onClick={() => setFilter('free')}
+                    >
+                        Free
+                    </button>
+                    <button
+                        className={`filter-btn ${filter === 'beginner' ? 'active' : ''}`}
+                        onClick={() => setFilter('beginner')}
+                    >
+                        Beginner Friendly
+                    </button>
+                </div>
 
-                        <p className="program-description">{program.description}</p>
-
-                        <div className="program-details">
-                            <div className="detail-item">
-                                <DollarSign size={16} className="detail-icon" />
-                                <span className="detail-label">Stipend:</span>
-                                <span className="detail-value">{program.stipend}</span>
-                            </div>
-                            <div className="detail-item">
-                                <Calendar size={16} className="detail-icon" />
-                                <span className="detail-label">Timeline:</span>
-                                <span className="detail-value">{program.timeline}</span>
-                            </div>
-                            <div className="detail-item">
-                                <Users size={16} className="detail-icon" />
-                                <span className="detail-label">Eligibility:</span>
-                                <span className="detail-value">{program.eligibility}</span>
-                            </div>
-                            <div className="detail-item">
-                                <Award size={16} className="detail-icon" />
-                                <span className="detail-label">Level:</span>
-                                <span className="detail-value">{program.difficulty}</span>
-                            </div>
-                        </div>
-
-                        <div className="program-tags">
-                            {program.tags.map(tag => (
-                                <span key={tag} className="program-tag">{tag}</span>
-                            ))}
-                        </div>
-
-                        <a
-                            href={program.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="program-link"
+                {/* Open Source Programs Grid */}
+                <h2 className="section-heading fade-in">Open Source Programs</h2>
+                <div className="programs-grid">
+                    {filteredPrograms.map((program, index) => (
+                        <div
+                            key={program.id}
+                            className="program-card fade-in"
+                            style={{ animationDelay: `${index * 0.1}s` }}
                         >
-                            Learn More <ExternalLink size={16} />
-                        </a>
+                            <div className="program-header" style={{ borderTopColor: program.color }}>
+                                <div className="program-title-section">
+                                    <h2 className="program-name">{program.name}</h2>
+                                    <span className="program-org">{program.organization}</span>
+                                </div>
+                                <div className="program-logo" style={{ backgroundColor: program.color }}>
+                                    {program.shortName}
+                                </div>
+                            </div>
+
+                            <p className="program-description">{program.description}</p>
+
+                            <div className="program-details">
+                                <div className="detail-item">
+                                    <DollarSign size={16} className="detail-icon" />
+                                    <span className="detail-label">Stipend:</span>
+                                    <span className="detail-value">{program.stipend}</span>
+                                </div>
+                                <div className="detail-item">
+                                    <Calendar size={16} className="detail-icon" />
+                                    <span className="detail-label">Timeline:</span>
+                                    <span className="detail-value">{program.timeline}</span>
+                                </div>
+                                <div className="detail-item">
+                                    <Users size={16} className="detail-icon" />
+                                    <span className="detail-label">Eligibility:</span>
+                                    <span className="detail-value">{program.eligibility}</span>
+                                </div>
+                                <div className="detail-item">
+                                    <Award size={16} className="detail-icon" />
+                                    <span className="detail-label">Level:</span>
+                                    <span className="detail-value">{program.difficulty}</span>
+                                </div>
+                            </div>
+
+                            <div className="program-tags">
+                                {program.tags.map(tag => (
+                                    <span key={tag} className="program-tag">{tag}</span>
+                                ))}
+                            </div>
+
+                            <a
+                                href={program.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="program-link"
+                            >
+                                Learn More <ExternalLink size={16} />
+                            </a>
+                        </div>
+                    ))}
+                </div>
+
+                {filteredPrograms.length === 0 && (
+                    <div className="no-results">
+                        <p>No programs match your filter criteria.</p>
                     </div>
-                ))}
-            </div>
+                )}
 
-            {filteredPrograms.length === 0 && (
-                <div className="no-results">
-                    <p>No programs match your filter criteria.</p>
-                </div>
-            )}
-
-            {/* DSA & Competitive Programming Section */}
-            <div className="resource-section fade-in">
-                <h2 className="section-heading">DSA & Competitive Programming</h2>
-                <div className="programs-grid">
-                    {dsaResources.map((resource, index) => (
-                        <div key={resource.id} className="program-card" style={{ animationDelay: `${index * 0.1}s` }}>
-                            <div className="program-header" style={{ borderTopColor: resource.color }}>
-                                <div className="program-title-section">
-                                    <h2 className="program-name">{resource.name}</h2>
-                                    <span className="program-org">{resource.type}</span>
+                {/* DSA & Competitive Programming Section */}
+                <div className="resource-section fade-in">
+                    <h2 className="section-heading">DSA & Competitive Programming</h2>
+                    <div className="programs-grid">
+                        {dsaResources.map((resource, index) => (
+                            <div key={resource.id} className="program-card" style={{ animationDelay: `${index * 0.1}s` }}>
+                                <div className="program-header" style={{ borderTopColor: resource.color }}>
+                                    <div className="program-title-section">
+                                        <h2 className="program-name">{resource.name}</h2>
+                                        <span className="program-org">{resource.type}</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <p className="program-description">{resource.description}</p>
-                            <div className="program-tags">
-                                {resource.tags.map(tag => (
-                                    <span key={tag} className="program-tag">{tag}</span>
-                                ))}
-                            </div>
-                            <a href={resource.link} target="_blank" rel="noopener noreferrer" className="program-link">
-                                Visit <ExternalLink size={16} />
-                            </a>
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            {/* Career & Tech Stack Resources Section */}
-            <div className="resource-section fade-in">
-                <h2 className="section-heading">Career & Tech Stack Resources</h2>
-                <div className="programs-grid">
-                    {careerResources.map((resource, index) => (
-                        <div key={resource.id} className="program-card" style={{ animationDelay: `${index * 0.1}s` }}>
-                            <div className="program-header" style={{ borderTopColor: resource.color }}>
-                                <div className="program-title-section">
-                                    <h2 className="program-name">{resource.name}</h2>
-                                    <span className="program-org">{resource.category}</span>
+                                <p className="program-description">{resource.description}</p>
+                                <div className="program-tags">
+                                    {resource.tags.map(tag => (
+                                        <span key={tag} className="program-tag">{tag}</span>
+                                    ))}
                                 </div>
+                                <a href={resource.link} target="_blank" rel="noopener noreferrer" className="program-link">
+                                    Visit <ExternalLink size={16} />
+                                </a>
                             </div>
-                            <p className="program-description">{resource.description}</p>
-                            <div className="program-tags">
-                                {resource.tags.map(tag => (
-                                    <span key={tag} className="program-tag">{tag}</span>
-                                ))}
+                        ))}
+                    </div>
+                </div>
+
+                {/* Career & Tech Stack Resources Section */}
+                <div className="resource-section fade-in">
+                    <h2 className="section-heading">Career & Tech Stack Resources</h2>
+                    <div className="programs-grid">
+                        {careerResources.map((resource, index) => (
+                            <div key={resource.id} className="program-card" style={{ animationDelay: `${index * 0.1}s` }}>
+                                <div className="program-header" style={{ borderTopColor: resource.color }}>
+                                    <div className="program-title-section">
+                                        <h2 className="program-name">{resource.name}</h2>
+                                        <span className="program-org">{resource.category}</span>
+                                    </div>
+                                </div>
+                                <p className="program-description">{resource.description}</p>
+                                <div className="program-tags">
+                                    {resource.tags.map(tag => (
+                                        <span key={tag} className="program-tag">{tag}</span>
+                                    ))}
+                                </div>
+                                <a href={resource.link} target="_blank" rel="noopener noreferrer" className="program-link">
+                                    Start Learning <ExternalLink size={16} />
+                                </a>
                             </div>
-                            <a href={resource.link} target="_blank" rel="noopener noreferrer" className="program-link">
-                                Start Learning <ExternalLink size={16} />
-                            </a>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-);
+    );
 }
 
 export default Explore;
