@@ -39,7 +39,8 @@
 }
 
 .nav-logo-img {
-    height: 40px;
+    height: 48px;
+    /* Changed from 40px to 48px */
     width: auto;
     object-fit: contain;
 }
